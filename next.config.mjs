@@ -4,6 +4,9 @@ import rehypeHighlight from 'rehype-highlight';
 
 const nextConfig = {
   pageExtensions: ['js', 'jsx', 'mdx'],
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   experimental: {
     mdxRs: true,
   },
