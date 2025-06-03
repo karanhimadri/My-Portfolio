@@ -1,26 +1,30 @@
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
+'use client'; // if using in app directory and doing client-side rendering
+
 import Link from 'next/link';
 import { format } from 'date-fns';
 
-const BLOG_PATH = path.join(process.cwd(), 'src/content/blog');
+const posts = [
+  {
+    slug: 'my-first-post',
+    title: 'My First Post',
+    date: '2024-06-01',
+  },
+  {
+    slug: 'nextjs-tips',
+    title: 'Next.js Tips and Tricks',
+    date: '2024-05-20',
+  },
+  {
+    slug: 'deploy-guide',
+    title: 'Deploying Your App to Vercel',
+    date: '2024-04-10',
+  },
+  // Add more posts here
+];
+
+posts.sort((a, b) => new Date(b.date) - new Date(a.date));
 
 export default function BlogIndexPage() {
-  const files = fs.readdirSync(BLOG_PATH);
-
-  const posts = files.map((file) => {
-    const source = fs.readFileSync(path.join(BLOG_PATH, file), 'utf8');
-    const { data } = matter(source);
-    return {
-      slug: file.replace(/\.mdx$/, ''),
-      title: data.title,
-      date: data.date,
-    };
-  });
-
-  posts.sort((a, b) => new Date(b.date) - new Date(a.date));
-
   return (
     <main className="max-w-3xl mx-auto p-6 pt-24">
       <h1 className="text-3xl font-bold mb-8">Blog</h1>
