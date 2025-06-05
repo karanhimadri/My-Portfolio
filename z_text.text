@@ -1,0 +1,26 @@
+Looking at your React component code, here are the main color themes used:
+Light Mode
+
+Primary Colors: Blue to Indigo gradient (from-blue-600 via-indigo-600 to-purple-600)
+Background: Light gray gradient (from-slate-50 via-white to-blue-50/30)
+Cards: White with subtle transparency (bg-white/80)
+Text: Dark slate (text-slate-900 for headings, text-slate-600 for body)
+Accents: Blue and Indigo shades for interactive elements
+Borders: Light slate with transparency (border-slate-200/50)
+
+Dark Mode
+
+Primary Colors: Amber to Yellow gradient (from-amber-400 via-yellow-400 to-orange-400)
+Background: Dark gray gradient (from-slate-900 via-gray-900 to-slate-800)
+Cards: Dark slate with transparency (bg-slate-800/80)
+Text: Light slate (text-slate-100 for headings, text-slate-300 for body)
+Accents: Amber and Yellow shades for interactive elements
+Borders: Dark slate with transparency (border-slate-700/50)
+
+Service-Specific Accent Colors (Both Modes)
+
+Blue Service: Blue to Indigo gradients
+Green Service: Green to Emerald gradients
+Purple Service: Purple to Pink gradients
+
+The design uses a cool blue-indigo palette for light mode and a warm amber-yellow palette for dark mode, creating a nice contrast between the two themes while maintaining consistency in the overall design structure.

@@ -3,6 +3,7 @@
 import { useTheme } from "@/context/ThemeContext";
 import { motion } from "framer-motion";
 import { useState, useCallback, useMemo } from "react";
+import assets from "../../public/assets";
 
 const themeClasses = {
   light: {
@@ -50,26 +51,27 @@ const themeClasses = {
 const projects = [
   {
     id: 1,
-    title: "Real-time Chat Platform",
-    desc: "Enterprise-grade messaging platform with WebSocket architecture, end-to-end encryption, and real-time collaboration.",
-    img: "https://images.unsplash.com/photo-1506765515384-028b60a970df?auto=format&fit=crop&w=800&q=80",
-    tags: ["React", "WebSocket", "Node.js", "Redis"],
+    title: "Prescripto - Full-Stack Appointment Booking System",
+    desc: "Multi-role appointment booking system with JWT authentication, real-time earnings dashboard, and Stripe-based secure payments.",
+    img: "/images/Screenshot 2025-06-04 103046.png",
+    tags: ["React.js", "Tailwind CSS", "Express.js", "MongoDB", "JWT", "Stripe", "Cloudinary"],
   },
   {
     id: 2,
-    title: "Portfolio CMS & Blog",
-    desc: "Headless CMS with MDX support, dynamic routing, SEO optimization, and performance analytics dashboard.",
-    img: "https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=800&q=80",
-    tags: ["Next.js", "MDX", "Tailwind", "Vercel"],
+    title: "Codellive – Real-Time Collaborative Code Sharing Platform",
+    desc: "Real-time code sharing and chat platform using WebSocket, with dynamic room creation and Google OAuth 2.0-based login.",
+    img: "/images/codelive.png",
+    tags: ["React.js", "Express.js", "WebSocket", "MongoDB", "OAuth 2.0", "Bootstrap"],
   },
   {
     id: 3,
-    title: "AI Research Dashboard",
-    desc: "Interactive data visualization platform for machine learning research with real-time model performance tracking.",
-    img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
-    tags: ["Python", "D3.js", "TensorFlow", "FastAPI"],
+    title: "KnowYourPDF – AI-Powered PDF Question Answering Model",
+    desc: "Full-stack AI PDF Q&A tool for education powered by Gemini API with secure JWT cookies, signup/login system, and email password reset.",
+    img: "/images/knowyourpdf.png",
+    tags: ["React.js", "Express.js", "Gemini API", "JWT", "Cookies Auth"],
   },
 ];
+
 
 const skills = [
   "React", "Next.js", "TypeScript", "Tailwind CSS", "Node.js",
@@ -272,9 +274,15 @@ export default function HomePage() {
               <button className={`${classes.button.primary} px-8 py-4 rounded-2xl font-semibold text-lg transition-all duration-300 focus-ring`}>
                 Explore My Work
               </button>
-              <button className={`${classes.button.secondary} px-8 py-4 rounded-2xl font-semibold text-lg transition-all duration-300 focus-ring`}>
+
+              <a
+                href="/files/FullStack_Developer_Resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${classes.button.secondary} px-8 py-4 rounded-2xl font-semibold text-lg transition-all duration-300 focus-ring inline-block text-center`}
+              >
                 Download Resume
-              </button>
+              </a>
             </motion.div>
           </motion.div>
 
@@ -421,7 +429,7 @@ export default function HomePage() {
                   <div className="text-6xl font-bold text-blue-600">3+</div>
                   <p className="text-lg">Years of Development Experience</p>
                   <div className="text-6xl font-bold text-purple-600">15+</div>
-                  <p className="text-lg">Projects Successfully Delivered</p>
+                  <p className="text-lg">Projects made With Love & Logic</p>
                 </div>
               </div>
             </div>

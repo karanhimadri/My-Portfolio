@@ -6,3 +6,14 @@ body {
     "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol";
 }
+.prose h1 {
+  @apply text-4xl font-bold;
+}
+
+.prose h2 {
+  @apply text-3xl font-semibold;
+}
+
+.prose code {
+  @apply bg-gray-100 px-1 rounded;
+}
