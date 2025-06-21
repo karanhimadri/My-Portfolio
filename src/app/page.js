@@ -2,8 +2,9 @@
 
 import { useTheme } from "@/context/ThemeContext";
 import { motion } from "framer-motion";
-import { useState, useCallback, useMemo } from "react";
-import assets from "../../public/assets";
+import { useState, useCallback, useMemo, useRef } from "react";
+import { projects, skills, services } from "../../public/data"
+import { useGlobalContext } from "@/context/GlobalContext";
 
 const themeClasses = {
   light: {
@@ -48,64 +49,6 @@ const themeClasses = {
   },
 };
 
-const projects = [
-  {
-    id: 1,
-    title: "Prescripto - Full-Stack Appointment Booking System",
-    desc: "Multi-role appointment booking system with JWT authentication, real-time earnings dashboard, and Stripe-based secure payments.",
-    img: "/images/Screenshot 2025-06-04 103046.png",
-    tags: ["React.js", "Tailwind CSS", "Express.js", "MongoDB", "JWT", "Stripe", "Cloudinary"],
-  },
-  {
-    id: 2,
-    title: "Codellive – Real-Time Collaborative Code Sharing Platform",
-    desc: "Real-time code sharing and chat platform using WebSocket, with dynamic room creation and Google OAuth 2.0-based login.",
-    img: "/images/codelive.png",
-    tags: ["React.js", "Express.js", "WebSocket", "MongoDB", "OAuth 2.0", "Bootstrap"],
-  },
-  {
-    id: 3,
-    title: "KnowYourPDF – AI-Powered PDF Question Answering Model",
-    desc: "Full-stack AI PDF Q&A tool for education powered by Gemini API with secure JWT cookies, signup/login system, and email password reset.",
-    img: "/images/knowyourpdf.png",
-    tags: ["React.js", "Express.js", "Gemini API", "JWT", "Cookies Auth"],
-  },
-];
-
-
-const skills = [
-  "React", "Next.js", "TypeScript", "Tailwind CSS", "Node.js",
-  "MongoDB", "PostgreSQL", "WebSocket", "Framer Motion", "Python",
-  "AI/ML", "Docker", "AWS", "GraphQL"
-];
-
-const services = [
-  {
-    title: "Full-Stack Development",
-    desc: "End-to-end web applications with modern frameworks, scalable architecture, and seamless user experiences.",
-    icon: "💻",
-    color: "blue",
-    features: ["React/Next.js", "Node.js APIs", "Database Design", "Cloud Deployment"],
-    stats: "25+ Projects"
-  },
-  {
-    title: "Spring Boot Development",
-    desc: "Robust backend systems built with Spring Boot, leveraging Java’s power for scalable web applications and APIs.",
-    icon: "🌱",
-    color: "green",
-    features: ["REST API Development", "Database Integration", "JWT Auth", "Maven/Gradle Projects"],
-    stats: "10+ Spring Boot Projects"
-  },
-  {
-    title: "Programming Language Teaching",
-    desc: "Helping students master programming fundamentals and advanced concepts through structured lessons and practice.",
-    icon: "📘",
-    color: "blue",
-    features: ["Java DSA", "OOP Concepts", "Frontend with React", "Project-Based Learning"],
-    stats: "100+ Students Taught"
-  }
-];
-
 // Animation variants
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -147,6 +90,9 @@ const heroVariants = {
 };
 
 export default function HomePage() {
+
+  const { aboutRef } = useGlobalContext()
+
   const { theme } = useTheme();
   const classes = themeClasses[theme];
   const [hoveredProject, setHoveredProject] = useState(null);
@@ -406,6 +352,7 @@ export default function HomePage() {
           <motion.section
             className={`${classes.section} glass-card rounded-3xl p-12 mb-24`}
             variants={itemVariants}
+            ref={aboutRef}
           >
             <div className="max-w-4xl mx-auto text-center">
               <h2 className="text-4xl md:text-5xl font-bold mb-8">About Me</h2>

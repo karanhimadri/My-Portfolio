@@ -1,0 +1,121 @@
+---
+title: "Getting Started with Spring Security in Spring Boot"
+date: "2025-06-20"
+excerpt: "Learn how to integrate Spring Security into your Spring Boot project to protect your APIs with HTTP Basic authentication and in-memory user setup."
+coverImage: "/images/spring-security-guide.jpg"
+tags: ["Spring Boot", "Spring Security", "Java", "Backend", "Authentication"]
+author: "Himadri Karan"
+---
+
+# 🔐 Spring Security – Beginner Guide
+
+Spring Security is a powerful framework that helps protect your Spring Boot applications by managing authentication verifying who you are and authorization controlling what you can access.
+
+---
+
+## ✅ What You’ll Learn
+
+- How to add Spring Security to your project
+- Secure endpoints using HTTP Basic Auth
+- Create in-memory users
+- Open public endpoints
+- Use a password encoder (BCrypt)
+
+---
+
+## 📦 Add Spring Security Dependency
+
+```xml
+<!-- pom.xml -->
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-security</artifactId>
+</dependency>
+```
+
+---
+
+## 🛠 Configure Security
+
+Create a file: `SecurityConfig.java`
+
+```java
+// SecurityConfig.java
+package com.example.helloserver.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+
+@Configuration
+public class SecurityConfig {
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public InMemoryUserDetailsManager userDetailsService(PasswordEncoder encoder) {
+        UserDetails user = User.builder()
+            .username("admin")
+            .password(encoder.encode("admin123"))
+            .roles("ADMIN")
+            .build();
+
+        return new InMemoryUserDetailsManager(user);
+    }
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+            .csrf().disable()
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/uploads/**").permitAll()
+                .anyRequest().authenticated()
+            )
+            .httpBasic();
+        return http.build();
+    }
+}
+```
+
+---
+
+## 🔑 Test Your API
+
+Try accessing any endpoint (e.g. `/book/all-books`) using a tool like **Postman** or in your browser.
+
+You’ll be asked to log in using:
+
+- **Username:** `admin`
+- **Password:** `admin123`
+
+---
+
+## 🔓 Allow Public Access to Some Routes
+
+You can open access to certain paths using `permitAll()`:
+
+```java
+.requestMatchers("/uploads/**", "/public/**").permitAll()
+```
+
+---
+
+## 🎯 Summary
+
+✅ Added Spring Security dependency  
+✅ Created SecurityConfig with in-memory user  
+✅ Used BCrypt password encoder  
+✅ Configured HTTP Basic Authentication  
+✅ Protected all endpoints except `/uploads/**`  
+
+Now your Spring Boot app is secured! 🔐
+

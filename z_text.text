@@ -1,5 +1,5 @@
-Looking at your React component code, here are the main color themes used:
-Light Mode
+Here are the main color themes used:
+**Light Mode
 
 Primary Colors: Blue to Indigo gradient (from-blue-600 via-indigo-600 to-purple-600)
 Background: Light gray gradient (from-slate-50 via-white to-blue-50/30)
@@ -8,7 +8,7 @@ Text: Dark slate (text-slate-900 for headings, text-slate-600 for body)
 Accents: Blue and Indigo shades for interactive elements
 Borders: Light slate with transparency (border-slate-200/50)
 
-Dark Mode
+**Dark Mode
 
 Primary Colors: Amber to Yellow gradient (from-amber-400 via-yellow-400 to-orange-400)
 Background: Dark gray gradient (from-slate-900 via-gray-900 to-slate-800)

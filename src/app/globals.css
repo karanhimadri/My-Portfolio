@@ -1,19 +1,417 @@
 @import "tailwindcss";
+@import 'highlight.js/styles/github-dark.css';
+
+/* Reset strong elements globally */
+strong {
+  display: inline;
+  white-space: normal;
+  word-break: normal;
+  line-height: inherit;
+  vertical-align: baseline;
+  font-weight: bold;
+  text-decoration: none;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
 
 body {
-  /* Just in case Tailwind font-sans is missing, fallback */
   font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol";
 }
-.prose h1 {
-  @apply text-4xl font-bold;
+
+/* Line clamp utilities */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-.prose h2 {
-  @apply text-3xl font-semibold;
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-.prose code {
-  @apply bg-gray-100 px-1 rounded;
+/* Smooth backdrop blur support */
+.backdrop-blur-sm {
+  backdrop-filter: blur(4px);
+}
+
+/* Custom blog post title styling */
+.blog-post-title {
+  font-size: 2.25rem !important;
+  line-height: 1.2 !important;
+  margin-bottom: 1rem !important;
+  font-weight: 700 !important;
+}
+
+@media (min-width: 1024px) {
+  .blog-post-title {
+    font-size: 3rem !important;
+  }
+}
+
+.blog-post-title-light {
+  color: #1d4ed8 !important;
+}
+
+.blog-post-title-dark {
+  color: #60a5fa !important;
+}
+
+/* Blog post meta styling */
+.blog-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+
+/* Better spacing for blog content */
+.prose-content > * + * {
+  margin-top: 1.5rem;
+}
+
+.prose-content h2 {
+  margin-top: 2.5rem !important;
+  margin-bottom: 1rem !important;
+}
+
+.prose-content h3 {
+  margin-top: 2rem !important;
+  margin-bottom: 0.75rem !important;
+}
+
+/* Enhanced gradient text */
+.bg-clip-text {
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* Enhanced prose styling */
+.prose {
+  max-width: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Fix for inline elements breaking */
+.prose p strong,
+.prose-gray p strong,
+.prose-invert p strong {
+  display: inline !important;
+  white-space: normal !important;
+  word-break: normal !important;
+  overflow-wrap: normal !important;
+}
+
+/* Force all strong elements to be inline */
+strong {
+  display: inline !important;
+  white-space: normal !important;
+  word-break: normal !important;
+  line-height: inherit !important;
+}
+
+/* Ensure paragraphs flow properly */
+.prose p,
+.prose-gray p,
+.prose-invert p {
+  display: block;
+  width: 100%;
+  text-align: left;
+}
+
+/* Override any MDX-generated styles */
+.prose-content p {
+  display: block !important;
+  white-space: normal !important;
+}
+
+.prose-content strong {
+  display: inline !important;
+  white-space: normal !important;
+  word-break: normal !important;
+  line-height: inherit !important;
+}
+
+/* Global strong element fix */
+article strong,
+div strong,
+p strong {
+  display: inline !important;
+  white-space: normal !important;
+  word-break: normal !important;
+  line-height: inherit !important;
+  vertical-align: baseline !important;
+}
+
+/* Remove any flex or block display from strong elements */
+* strong {
+  display: inline !important;
+  flex-direction: unset !important;
+  flex-wrap: unset !important;
+}
+
+/* Light theme prose styling */
+.prose-gray h1 {
+  font-size: 1.7rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #111827;
+  line-height: 1.2;
+}
+
+.prose-gray h2 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: #1f2937;
+}
+
+.prose-gray h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: #1f2937;
+}
+
+.prose-gray p {
+  margin-bottom: 1rem;
+  line-height: 1.75;
+  color: #374151;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: none;
+  white-space: normal;
+}
+
+.prose-gray strong {
+  font-weight: 700;
+  color: #059669;
+  font-style: normal;
+  display: inline;
+  word-break: normal;
+  white-space: normal;
+  overflow-wrap: normal;
+  text-decoration: none;
+}
+
+.prose-gray code {
+  background-color: #f3f4f6;
+  padding: 0.125rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+  color: #dc2626;
+  border: 1px solid #d1d5db;
+}
+
+.prose-gray pre {
+  background-color: #f9fafb;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+  border: 1px solid #e5e7eb;
+}
+
+.prose-gray pre code {
+  background-color: transparent;
+  padding: 0;
+  color: #1f2937;
+  font-size: 0.875rem;
+  border: none;
+}
+
+/* Dark theme prose styling */
+.prose-invert h1 {
+  font-size: 1.7rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.prose-invert h2 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: #f3f4f6;
+}
+
+.prose-invert h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: #f3f4f6;
+}
+
+.prose-invert p {
+  margin-bottom: 1rem;
+  line-height: 1.75;
+  color: #e5e7eb;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: none;
+  white-space: normal;
+}
+
+.prose-invert strong {
+  font-weight: 700;
+  color: #fbbf24;
+  font-style: normal;
+  display: inline;
+  word-break: normal;
+  white-space: normal;
+  overflow-wrap: normal;
+  text-decoration: none;
+}
+
+.prose-invert code {
+  background-color: #1f2937;
+  padding: 0.125rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+  color: #fbbf24;
+  border: 1px solid #374151;
+}
+
+.prose-invert pre {
+  background-color: #0f172a;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+  border: 1px solid #334155;
+}
+
+.prose-invert pre code {
+  background-color: transparent;
+  padding: 0;
+  color: #f1f5f9;
+  font-size: 0.875rem;
+  border: none;
+}
+
+/* Common prose styling */
+.prose ul,
+.prose-gray ul,
+.prose-invert ul {
+  margin-bottom: 1rem;
+  margin-left: 1.5rem;
+  list-style-type: disc;
+}
+
+.prose li,
+.prose-gray li {
+  margin-bottom: 0.5rem;
+  color: #374151;
+}
+
+.prose-invert li {
+  margin-bottom: 0.5rem;
+  color: #e5e7eb;
+}
+
+.prose li::marker,
+.prose-gray li::marker {
+  color: #6b7280;
+}
+
+.prose-invert li::marker {
+  color: #9ca3af;
+}
+
+.prose blockquote,
+.prose-gray blockquote {
+  border-left: 4px solid #3b82f6;
+  padding-left: 1rem;
+  font-style: italic;
+  color: #4b5563;
+  margin-bottom: 1rem;
+  background-color: #f9fafb;
+  padding: 1rem;
+  border-radius: 0.25rem;
+}
+
+.prose-invert blockquote {
+  border-left: 4px solid #3b82f6;
+  padding-left: 1rem;
+  font-style: italic;
+  color: #d1d5db;
+  margin-bottom: 1rem;
+  background-color: #111827;
+  padding: 1rem;
+  border-radius: 0.25rem;
+}
+
+.prose hr,
+.prose-gray hr,
+.prose-invert hr {
+  border-color: #374151;
+  margin: 2rem 0;
+}
+
+/* Emoji styling */
+.prose p:has(+ hr),
+.prose h2:has(+ hr) {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Override any dark mode that might interfere */
+.dark .prose h1,
+.dark .prose h2,
+.dark .prose h3,
+.dark .prose p,
+.dark .prose strong,
+.dark .prose li {
+  color: inherit;
+}
+
+/* Syntax highlighting adjustments for black background */
+.hljs {
+  background: #0f172a !important;
+  color: #f1f5f9 !important;
+}
+
+/* Better contrast for syntax highlighting */
+.hljs-keyword {
+  color: #8b5cf6 !important;
+}
+
+.hljs-string {
+  color: #10b981 !important;
+}
+
+.hljs-comment {
+  color: #6b7280 !important;
+}
+
+.hljs-number {
+  color: #f59e0b !important;
+}
+
+.hljs-title {
+  color: #3b82f6 !important;
+}
+
+/* Code block styling for black background */
+.prose pre[class*="language-"] {
+  background-color: #0f172a;
+  color: #f1f5f9;
 }

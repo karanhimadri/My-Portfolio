@@ -1,10 +1,10 @@
 'use client';
 
+import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import ThemeToggle from '../components/ThemeToggle';
 import { useTheme } from '../context/ThemeContext';
-
 const themeClasses = {
   light: {
     navBg: "bg-white/80 backdrop-blur-md border-b border-slate-200/50",
@@ -37,36 +37,37 @@ const themeClasses = {
 };
 
 const links = [
-  { href: "/blog", label: "Blog", icon: "✍️" },
-  { href: "/research", label: "Research", icon: "📄" },
-  { href: "/roadmap", label: "Roadmap", icon: "🗺️" },
-  { href: "/portfolio", label: "Portfolio", icon: "💼" },
-  { href: "/contact", label: "Contact", icon: "💬" },
+  { href: "/", label: "Home", icon: "🏠" },
+  { href: "/about", label: "About", icon: "👤" },
+  { href: "/projects", label: "Projects", icon: "🛠️" },
+  { href: "/blog", label: "Blog", icon: "📝" },
+  { href: "/certificates", label: "Certificates", icon: "📜" },
+  { href: "/contact", label: "Contact", icon: "✉️" },
 ];
 
+
 const Navbar = () => {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [activeLink, setActiveLink] = useState('/');
   const { theme } = useTheme();
   const classes = themeClasses[theme];
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useEffect(() => {
-    setActiveLink(window.location.pathname);
-  }, []);
-
-  const handleLinkClick = (href) => {
-    setActiveLink(href);
-    setIsOpen(false);
+  const handleLinkClick = () => setIsOpen(false);
+  const isActive = (href) => {
+    if (href === '/') {
+      return pathname === '/';
+    }
+    if (href === '/blog') {
+      return pathname === '/blog' || pathname.startsWith('/blog/');
+    }
+    return pathname === href || pathname.startsWith(href + '/');
   };
 
   return (
@@ -75,7 +76,7 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-14 sm:h-16 lg:h-20">
           {/* Logo */}
           <div className="flex items-center space-x-2 sm:space-x-3">
-            <Link href="/" className="group flex items-center space-x-2 sm:space-x-3" onClick={() => handleLinkClick('/')}>
+            <Link href="/" className="group flex items-center space-x-2 sm:space-x-3" onClick={handleLinkClick}>
               <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-r ${classes.logoGradient} flex items-center justify-center text-white font-bold text-base sm:text-lg group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
                 H
               </div>
@@ -91,14 +92,14 @@ const Navbar = () => {
               <Link
                 key={href}
                 href={href}
-                onClick={() => handleLinkClick(href)}
-                className={`relative px-4 py-2 rounded-xl font-medium transition-all duration-300 group flex items-center space-x-2 ${activeLink === href
+                onClick={handleLinkClick}
+                className={`relative px-4 py-2 rounded-xl font-medium transition-all duration-300 group flex items-center space-x-2 ${isActive(href)
                   ? `${classes.activeBg} ${classes.textPrimary}`
                   : `${classes.textSecondary} ${classes.hoverText} ${classes.hoverBg}`
                   }`}
               >
                 <span>{label}</span>
-                {activeLink === href && (
+                {isActive(href) && (
                   <div className={`absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-gradient-to-r ${classes.logoGradient} rounded-full`} />
                 )}
               </Link>
@@ -144,15 +145,15 @@ const Navbar = () => {
               <Link
                 key={href}
                 href={href}
-                onClick={() => handleLinkClick(href)}
-                className={`flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-all duration-300 ${activeLink === href
+                onClick={handleLinkClick}
+                className={`flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-all duration-300 ${isActive(href)
                   ? `${classes.activeBg} ${classes.textPrimary}`
                   : `${classes.mobileText} ${classes.mobileHoverBg}`
                   }`}
               >
                 <span className="text-base">{icon}</span>
                 <span className="font-medium text-sm">{label}</span>
-                {activeLink === href && (
+                {isActive(href) && (
                   <div className={`ml-auto w-2 h-2 bg-gradient-to-r ${classes.logoGradient} rounded-full`} />
                 )}
               </Link>
@@ -162,7 +163,7 @@ const Navbar = () => {
             <div className={`pt-3 mt-3 border-t ${classes.borderSplit}`}>
               <Link
                 href="/contact"
-                onClick={() => handleLinkClick('/contact')}
+                onClick={handleLinkClick}
                 className={`w-full flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg font-semibold text-white bg-gradient-to-r ${classes.logoGradient} hover:scale-105 transition-all duration-300 shadow-lg text-sm`}
               >
                 <span>Let's Talk</span>

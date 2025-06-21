@@ -1,0 +1,206 @@
+---
+title: "Building a RAG-Based Multi-Domain AI Chatbot using Cohere, ChromaDB & Google Gemini"
+date: "June 20, 2025"
+excerpt: "Explore how I built a powerful Retrieval-Augmented Generation chatbot using Python, ChromaDB, Cohere Embeddings, Google Gemini LLM, and Redis to support domain-specific knowledge querying with performance optimization."
+coverImage: "/images/rag-chatbot-cover.jpg"
+tags: ["AI", "LLM", "Chatbot", "RAG", "Python", "Cohere", "Gemini", "ChromaDB", "FastAPI", "React"]
+author: "Himadri Karan"
+---
+
+# 🤖 RAG-Based Multi-Domain AI Chatbot with Cohere + Gemini
+
+This project demonstrates how to build a scalable **Retrieval-Augmented Generation (RAG)** chatbot that can answer queries across multiple knowledge domains using vector embeddings and large language models.
+
+---
+
+## 🚀 What You’ll Learn
+
+- How to use **Cohere** for embedding documents and queries  
+- Setting up **ChromaDB** for similarity search  
+- Integrating **Google Gemini LLM** for natural language responses  
+- Using **FastAPI + React** for a clean full-stack experience  
+- Optimizing with **Redis** and credit tracking  
+- Supporting multiple knowledge domains (e.g., Education, Legal, Healthcare)
+
+---
+
+## 🧱 Tech Stack Overview
+
+- **Backend:** Python, FastAPI, Cohere, ChromaDB, Google Gemini API, Upstash Redis  
+- **Frontend:** React.js, Tailwind CSS  
+- **Storage:** Local file system + ChromaDB vector store  
+- **Auth & Usage Control:** Redis-based credit system
+
+---
+
+## 🧠 How It Works
+
+1. **Ingestion Phase**
+   - Documents are chunked and embedded using Cohere.  
+   - Embeddings are stored in **ChromaDB** under domain-specific collections.
+
+2. **Query Phase**
+   - User inputs a query through the React interface.  
+   - The query is embedded at runtime and matched against the selected domain's ChromaDB collection.  
+   - Retrieved contexts are combined into a prompt and passed to **Google Gemini** for answer generation.
+
+3. **Redis for Credit Control**
+   - Tracks per-user API usage with TTL (Time-to-Live) logic.  
+   - Helps manage rate limits and cost control.
+
+---
+
+## 📦 Sample Folder Structure
+```
+Backend_Server/
+│
+├── app/                  # Core logic
+│   ├── main.py
+│   ├── retriver.py
+│   ├── embedder.py
+│   ├── llm.py
+│   └── utils/
+│       └── credit_tracker.py
+│
+├── chroma_store/         # Chroma vector store
+├── sampleData/           # Source docs in JSON
+├── requirements.txt
+├── .env
+└── .gitignore
+```
+---
+
+## 🛠️ Redis Credit Tracking Example
+
+```python
+def track_credits(user_id: str) -> bool:
+    key = f"user:{user_id}:credits"
+    current = redis.get(key)
+
+    if current is None:
+        redis.set(key, DEFAULT_CREDITS - 1, ex=TTL_SECONDS)
+        return True
+    if int(current) <= 0:
+        return False
+
+    redis.decr(key)
+    return True
+```
+---
+## 💻 Frontend with React + Tailwind
+
+- Clean interface for domain selection
+- Query input box with real-time results
+- Context citations for each answer
+- Responsive layout with Tailwind CSS
+
+---
+
+### ✅ Prerequisites
+
+- Python 3.9+
+- Node.js 18+
+- Redis (Upstash or local)
+- ChromeDB (local file-based)
+- API keys: `GEMINI_API_KEY`, `COHERE_API_KEY`, `REDIS_URL`, `REDIS_TOKEN`
+
+---
+
+### 🔧 Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/your-username/rag-chatbot.git
+cd rag-chatbot/Backend_Server
+
+# Create virtual environment
+python -m venv venv
+venv\Scripts\activate     # on Windows
+
+# Install dependencies
+pip install -r requirements.txt
+```
+---
+
+## ⚙️ Configuration
+
+Create a `.env` file in the root:
+```js
+COHERE_API_KEY=your_key
+GEMINI_API_KEY=your_key
+REDIS_URL=https://...
+REDIS_TOKEN=your_token
+```
+---
+
+## 💡 Usage Guide
+
+1. Start Backend Server
+```bash
+cd app
+uvicorn main:app --reload
+```
+2. Start Frontend Server
+```bash
+cd Chat_UI
+npm install
+npm run dev
+```
+3. Interact via Browser
+
+- Open `http://localhost:5173`
+- Ask queries related to healthcare, education, law, etc.
+---
+
+## 🔒 Security Features
+- ✅ Environment variables for all sensitive keys
+- ✅ Credit-based usage control via Redis
+- ✅ Token-level rate limiting (Upstash)
+- ⛔ No hardcoded credentials in production
+---
+
+## 🎯 Performance Optimization
+- ⚡ Efficient semantic search using ChromaDB
+- 🔁 Batched embedding with Cohere
+- 🔄 Redis caching to reduce API overuse
+- 📦 Modular design to plug-and-play new domains
+---
+
+## 🔄 Future Enhancements
+- 🧬 Add support for OpenAI/SentenceTransformers
+- 🗃️ Optional Pinecone/Weaviate for scalable vector storage
+- 🧑‍💻 User authentication and role-based access
+- 🧠 Feedback learning loop for continuous improvement
+- 📊 Admin dashboard for monitoring & analytics
+- 📦 Docker + CI/CD for deployment pipeline
+---
+
+## 🙏 Acknowledgments
+- Google Gemini API
+- Cohere
+- ChromaDB
+- FastAPI
+- Upstash Redis
+- Open-source community & contributors
+
+---
+
+## 🎉 Conclusion
+
+This RAG-based chatbot demonstrates the power of combining modern LLMs with vector databases for domain-specific knowledge retrieval. The integration of Cohere embeddings with Google Gemini provides accurate, contextual responses while maintaining scalability through Redis caching and ChromaDB's efficient vector operations.
+
+**Key Takeaways:**
+- ✅ RAG significantly improves response accuracy for specialized domains
+- ✅ Vector embeddings enable semantic search across large knowledge bases  
+- ✅ Proper caching and rate limiting are crucial for production deployment
+- ✅ Modular architecture allows easy expansion to new domains
+
+Feel free to explore the code, contribute improvements, or adapt it for your own use cases!
+
+<SocialLinks 
+  linkedinUrl="https://linkedin.com/in/himadrikaran"
+  githubUrl="https://github.com/karanhimadri/RAG-Based-ChatBot.git"
+  youtubeUrl=""
+/>
+
+
