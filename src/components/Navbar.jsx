@@ -45,7 +45,6 @@ const links = [
   { href: "/contact", label: "Contact", icon: "✉️" },
 ];
 
-
 const Navbar = () => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);

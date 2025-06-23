@@ -18,7 +18,7 @@ export async function getPostBySlug(slug) {
     const realSlug = slug.replace(/\.mdx$/, '');
     const fullPath = path.join(postsDirectory, `${realSlug}.mdx`);
     const fileContents = fs.readFileSync(fullPath, 'utf8');
-    const { content, data } = matter(fileContents);        // Compile MDX content to React component
+    const { content, data } = matter(fileContents); 
     const compiled = await compileMDX({
       source: content,
       options: {

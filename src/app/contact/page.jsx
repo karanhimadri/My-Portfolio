@@ -65,7 +65,10 @@ const ContactPage = () => {
 
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState(null);
+  const [submitStatus, setSubmitStatus] = useState({
+    status: "",
+    message: ""
+  });
 
   const handleInputChange = e => {
     const { name, value } = e.target;
@@ -74,6 +77,10 @@ const ContactPage = () => {
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
+    if (!formData.email || !formData.message || !formData.name || !formData.subject) {
+      setSubmitStatus(prev => ({ ...prev, status: "error", message: "Please fill in all the required fields." }));
+      return
+    }
 
     const templateParams = {
       user_name: formData.name,
@@ -89,11 +96,11 @@ const ContactPage = () => {
         templateParams,
         'R_HfTZcPVfKJL0nhW'
       );
-      setSubmitStatus('success');
+      setSubmitStatus(prev => ({ ...prev, status: "success", message: "Thanks! I'll get back to you soon." }));
       setFormData({ name: '', email: '', subject: '', message: '' });
     } catch (error) {
       console.error('Email sending error:', error);
-      setSubmitStatus('error');
+      setSubmitStatus(prev => ({ ...prev, status: "error", message: "Sorry, there was an issue sending your message. Please try again later." }));
     } finally {
       setIsSubmitting(false);
       setTimeout(() => setSubmitStatus(null), 5000);
@@ -153,17 +160,17 @@ const ContactPage = () => {
             <h2 className={`text-2xl font-semibold ${classes.heading}`}>Send a Message</h2>
           </div>
 
-          {submitStatus === 'success' && (
+          {submitStatus.status === 'success' && (
             <div className={`mb-6 p-4 rounded-lg flex items-center gap-3 ${classes.successBg} border ${classes.successBorder}`}>
               <CheckCircle className="w-5 h-5 text-green-600" />
-              <p className={`${classes.successText}`}>Thanks! I'll get back to you soon.</p>
+              <p className={`${classes.successText}`}>{submitStatus.message}</p>
             </div>
           )}
 
-          {submitStatus === 'error' && (
+          {submitStatus.status === 'error' && (
             <div className="mb-6 p-4 rounded-lg flex items-center gap-3 bg-red-50 border border-red-200">
               <CheckCircle className="w-5 h-5 text-red-600" />
-              <p className="text-red-700">Sorry, there was an issue sending your message. Please try again later.</p>
+              <p className="text-red-700">{submitStatus.message}</p>
             </div>
           )}
 

@@ -415,3 +415,89 @@ p strong {
   background-color: #0f172a;
   color: #f1f5f9;
 }
+
+/* Mobile-specific improvements */
+@media (max-width: 640px) {
+  /* Improve touch targets */
+  button, [role="button"], .clickable {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Better text readability on mobile */
+  body {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  
+  /* Improved input sizing */
+  input, select, textarea {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+  
+  /* Better horizontal scrolling prevention */
+  .prevent-horizontal-scroll {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+}
+
+/* Improved focus styles for accessibility */
+.focus-ring:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #3b82f6, 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+/* Better mobile card spacing */
+.mobile-card-spacing {
+  padding: 1rem;
+}
+
+@media (min-width: 640px) {
+  .mobile-card-spacing {
+    padding: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .mobile-card-spacing {
+    padding: 2rem;
+  }
+}
+
+/* Responsive text utilities */
+.text-mobile-base {
+  font-size: 0.875rem;
+}
+
+@media (min-width: 640px) {
+  .text-mobile-base {
+    font-size: 1rem;
+  }
+}
+
+.text-mobile-lg {
+  font-size: 1rem;
+}
+
+@media (min-width: 640px) {
+  .text-mobile-lg {
+    font-size: 1.125rem;
+  }
+}
+
+.text-mobile-xl {
+  font-size: 1.125rem;
+}
+
+@media (min-width: 640px) {
+  .text-mobile-xl {
+    font-size: 1.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .text-mobile-xl {
+    font-size: 1.5rem;
+  }
+}

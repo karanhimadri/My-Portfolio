@@ -3,7 +3,7 @@ export const projects = [
     id: 1,
     title: "Prescripto - Full-Stack Appointment Booking System",
     desc: "Multi-role appointment booking system with JWT authentication, real-time earnings dashboard, and Stripe-based secure payments.",
-    img: "/images/Screenshot 2025-06-04 103046.png",
+    img: "/images/prescripto.png",
     tags: ["React.js", "Tailwind CSS", "Express.js", "MongoDB", "JWT", "Stripe", "Cloudinary"],
   },
   {
@@ -17,7 +17,7 @@ export const projects = [
     id: 3,
     title: "RAG Assistant – Multi Domain AI Chatbot",
     desc: "Domain-aware AI chatbot using Cohere embeddings, ChromaDB vector search, and Google Gemini LLM with Redis-based credit system and React + Tailwind UI.",
-    img: "/images/knowyourpdf.png",
+    img: "/images/rag.png",
     tags: ["Python", "FastAPI", "React.js", "Cohere", "ChromaDB", "Gemini API", "Redis", "Tailwind"],
   }
 ];
