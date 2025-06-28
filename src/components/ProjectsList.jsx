@@ -69,10 +69,18 @@ const ProjectsList = () => {
       );
     }
 
-    // Sort by featured first, then by date
+    // Sort by custom order (if specified), then featured first, then by date
     filtered.sort((a, b) => {
+      // First priority: custom order field (if both projects have it)
+      if (a.order !== undefined && b.order !== undefined) {
+        return a.order - b.order;
+      }
+      
+      // Second priority: featured projects first
       if (a.featured && !b.featured) return -1;
       if (!a.featured && b.featured) return 1;
+      
+      // Third priority: by date (newest first)
       const dateA = new Date(a.startDate || '2024-01-01');
       const dateB = new Date(b.startDate || '2024-01-01');
       return dateB - dateA;

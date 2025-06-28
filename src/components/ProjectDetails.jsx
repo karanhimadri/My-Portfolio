@@ -28,7 +28,7 @@ const themeClasses = {
     container: "bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800 text-slate-100",
     title: "text-slate-100",
     subtitle: "text-slate-300",
-    text: "text-slate-400",
+    text: "text-slate-200",
     meta: "text-slate-400",
     accent: "text-amber-400",
     link: "text-amber-400 hover:text-amber-300",
@@ -201,7 +201,7 @@ const ProjectDetails = ({ project }) => {
                 {project.responsibilities.map((responsibility, index) => (
                   <li key={index} className="flex items-start gap-3">
                     <span className={`mt-1 ${classes.accent}`}>•</span>
-                    <span>{responsibility}</span>
+                    <span className={`${classes.text}`}>{responsibility}</span>
                   </li>
                 ))}
               </ul>
